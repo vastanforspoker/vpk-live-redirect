@@ -1,0 +1,2 @@
+name = "vpk-live-redirect"
+pages_build_output_dir = "."

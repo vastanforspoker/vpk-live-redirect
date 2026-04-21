@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VPK Live – Flyttad</title>
+
+  <!-- Auto-redirect after 8 seconds -->
+  <meta http-equiv="refresh" content="15;url=https://vastanforspoker.se/live">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #D4A017;
+      --gold-bright: #F5C842;
+      --dark: #070b15;
+      --dark-mid: #0d1628;
+      --dark-light: #111e35;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--dark);
+      font-family: 'Barlow', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* Background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(20,40,80,0.6) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 60%, rgba(10,20,50,0.8) 0%, transparent 50%),
+        linear-gradient(160deg, #0d1628 0%, #070b15 50%, #0a0f1c 100%);
+      z-index: 0;
+    }
+
+    .bg-pattern {
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='60' font-size='50' fill='%23D4A017'%3E♠%3C/text%3E%3Ctext x='55' y='35' font-size='30' fill='%23D4A017'%3E♣%3C/text%3E%3C/svg%3E");
+      z-index: 0;
+    }
+
+    /* Gold lines */
+    .gold-line {
+      position: fixed;
+      left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold) 25%, var(--gold-bright) 50%, var(--gold) 75%, transparent);
+      z-index: 2;
+    }
+    .gold-line-top { top: 0; }
+    .gold-line-bottom { bottom: 0; }
+
+    /* Main layout */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    /* VPK Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 8px;
+      animation: fadeDown 0.6s ease both;
+    }
+
+    .logo-icon {
+      font-size: 42px;
+      color: var(--gold);
+      text-shadow: 0 0 30px rgba(212,160,23,0.6);
+      line-height: 1;
+    }
+
+    .logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      color: var(--gold);
+      letter-spacing: 5px;
+      text-shadow: 0 0 40px rgba(212,160,23,0.35);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      color: rgba(212,160,23,0.55);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      animation: fadeDown 0.6s 0.1s ease both;
+    }
+
+    /* Divider */
+    .divider {
+      width: 280px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212,160,23,0.4), transparent);
+      margin-bottom: 40px;
+      animation: fadeIn 0.8s 0.2s ease both;
+    }
+
+    /* Icon badge */
+    .moved-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(212,160,23,0.1);
+      border: 1px solid rgba(212,160,23,0.3);
+      border-radius: 40px;
+      padding: 8px 22px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.6s 0.3s ease both;
+    }
+
+    .moved-badge span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Headline */
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 8vw, 64px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeUp 0.6s 0.35s ease both;
+    }
+
+    h1 .gold { color: var(--gold); text-shadow: 0 0 30px rgba(212,160,23,0.4); }
+
+    /* Body text */
+    .body-text {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 16px;
+      animation: fadeUp 0.6s 0.45s ease both;
+    }
+
+    .body-text strong {
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+
+    /* New URL highlight */
+    .new-url {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(212,160,23,0.08);
+      border: 1px solid rgba(212,160,23,0.35);
+      border-radius: 12px;
+      padding: 14px 28px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .new-url .url-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    .new-url .url-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+
+    /* CTA Button */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+      color: var(--dark);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(212,160,23,0.35);
+      margin-bottom: 28px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      animation: fadeUp 0.6s 0.55s ease both;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(212,160,23,0.5);
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    /* Countdown */
+    .countdown {
+      font-size: 14px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 1px;
+      animation: fadeIn 0.6s 0.7s ease both;
+    }
+
+    .countdown strong {
+      color: rgba(212,160,23,0.7);
+      font-weight: 600;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      width: 220px;
+      height: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 2px;
+      margin: 10px auto 0;
+      overflow: hidden;
+      animation: fadeIn 0.6s 0.8s ease both;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+      border-radius: 2px;
+      transform-origin: left;
+      animation: drain 15s linear forwards;
+    }
+
+    /* How to find in app */
+    .app-hint {
+      margin-top: 36px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      max-width: 460px;
+      animation: fadeUp 0.6s 0.65s ease both;
+    }
+
+    .app-hint-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .app-hint-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .app-hint-text strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+
+    .live-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(220,50,50,0.15);
+      border: 1px solid rgba(220,50,50,0.4);
+      border-radius: 20px;
+      padding: 2px 10px;
+      vertical-align: middle;
+      margin: 0 2px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e05050;
+      animation: pulse 1.4s infinite;
+    }
+
+    .live-chip span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #e07070;
+      letter-spacing: 1px;
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes drain {
+      from { transform: scaleX(1); }
+      to   { transform: scaleX(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      h1 { font-size: 40px; }
+      .logo-text { font-size: 44px; }
+      .page { padding: 30px 20px; }
+      .new-url { padding: 12px 20px; }
+      .new-url .url-value { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-pattern"></div>
+<div class="gold-line gold-line-top"></div>
+<div class="gold-line gold-line-bottom"></div>
+
+<main class="page">
+
+  <div class="logo">
+    <div class="logo-icon">♣</div>
+    <div class="logo-text">VPK</div>
+  </div>
+  <div class="logo-sub">Västanfors Poker Klubb</div>
+
+  <div class="divider"></div>
+
+  <div class="moved-badge">
+    <span>📍 Sidan har flyttat</span>
+  </div>
+
+  <h1>LIVE HAR FÅTT<br><span class="gold">NY HEMADRESS</span></h1>
+
+  <p class="body-text">
+    Tournament Director Live är nu en del av <strong>VPK-appen</strong>.<br>
+    Du hittar live-vyn direkt på vår nya klubbsida.
+  </p>
+
+  <div class="new-url">
+    <div>
+      <div class="url-label">Ny adress</div>
+      <div class="url-value">vastanforspoker.se/live</div>
+    </div>
+  </div>
+
+  <a class="cta-btn" href="https://vastanforspoker.se/live">
+    Gå till Live →
+  </a>
+
+  <div class="countdown">
+    Omdirigeras automatiskt om <strong id="secs">15</strong> sekunder
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="app-hint">
+    <div class="app-hint-title">I klubbappen</div>
+    <div class="app-hint-text">
+      Öppna <strong>vastanforspoker.se</strong> och klicka på
+      <span class="live-chip"><span class="live-dot"></span><span>LIVE</span></span>
+      ikonen högst upp på sidan för att följa turneringen i realtid.
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Countdown timer
+  let secs = 15;
+  const el = document.getElementById('secs');
+  const timer = setInterval(() => {
+    secs--;
+    el.textContent = secs;
+    if (secs <= 0) {
+      clearInterval(timer);
+      window.location.href = 'https://vastanforspoker.se/live';
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
